@@ -1,0 +1,70 @@
+// Set text color based on background
+@function set-text-color($color) {
+	@if (lightness($color) >= lightness(#aaa)) {
+		@return #333;
+	} @else {
+		@return #fff;
+	}
+}
+
+// margin and padding
+$spaceamounts: (1, 2, 3, 4, 5);
+
+@each $space in $spaceamounts {
+	// All Around Margin
+	.m#{$space} {
+		margin: #{$space}rem;
+	}
+
+	// Vertical Margin
+	.my-#{$space} {
+		margin: #{$space}rem 0;
+	}
+
+	// All Around padding
+	.p#{$space} {
+		padding: #{$space}rem;
+	}
+
+	// Vertical padding
+	.py-#{$space} {
+		padding: #{$space}rem 0;
+	}
+}
+
+@mixin set-background($color) {
+	background-color: $color;
+	color: set-text-color($color);
+}
+
+body {
+	min-height: 100vh;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	scroll-behavior: smooth;
+}
+a {
+	&:hover {
+		filter: saturate(90%);
+	}
+}
+.table-wrapper{
+	overflow-x:auto;
+}
+table {
+	width: 100%;
+	text-align: center;
+	border-collapse: collapse;
+}
+th,
+td {
+	padding: 0.7rem;
+}
+tr {
+	border-bottom: 1px solid #999;
+}
+//  Fix for error not showing due to  bootstrap display none
+.invalid-feedback{
+	display: inline-block;
+}

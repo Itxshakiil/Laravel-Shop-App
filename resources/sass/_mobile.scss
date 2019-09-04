@@ -1,0 +1,28 @@
+@media screen and (max-width:576px){
+    .container{
+        margin-top:7rem;
+        padding:0 0.5rem;
+    }
+    .header-wrapper{
+        max-width:100vw;
+        flex-direction:column;
+        justify-items: center;
+        flex-wrap:wrap;
+        .nav-wrapper{
+            justify-content: center;
+        }
+    }
+    .nav-btn{
+        align-self: flex-start;
+        justify-self: flex-start;
+    }
+    header.bg-dark .header-wrapper .title{
+        margin:0 auto;
+    }
+}
+// #Really Small
+@media screen and (max-width:350px){
+    .container{
+        padding:0 0.3rem;
+    }
+}

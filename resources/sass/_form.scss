@@ -1,0 +1,68 @@
+.form-group {
+	flex-grow: 1;
+    display: flex;
+    margin:0.5rem 0.3rem;
+    flex-direction: column;
+
+	&.inline {
+		display: inline-block;
+		width: 40%;
+    }
+    label{
+        font-weight: 600;
+        margin-left:0.3rem;
+    }
+    small.input-hint{
+        margin-left:0.5rem;
+    }
+}
+
+.form-inline {
+    display: flex;
+    flex-wrap: wrap;
+    > .form-group{
+        flex-basis:360px;
+    }
+}
+input[type="text"],
+input[type="number"],
+input[type="email"],
+input[type="password"],
+input[type="submit"],
+input[type="date"],
+input[type="tel"],
+select,
+textarea {
+	display: block;
+    width: 100%;
+    padding: 0.4rem;
+    outline: none;
+    font-size: 1.2rem;
+    border-radius: 1px;
+	border: 1px solid #ccc;
+}
+
+input[type="submit"]{
+    text-transform: uppercase;
+}
+
+input:valid:focus:not(:placeholder-shown){
+    border:2px solid $success-color;
+ }
+ input:invalid:not(:focus):not(:placeholder-shown):not([type="password"]){
+    border:2px solid $danger-color;
+ }
+
+input:invalid:focus:not(:placeholder-shown){
+    border:2px solid $primary-color;
+ }
+ input[type="checkbox"]::after{
+     content:attr(data-text);
+     color:red;
+ }
+.password-toggler{
+    display: inline-block;
+    position:relative;
+    top:-27px;
+    left:calc(100% - 25px);
+}
