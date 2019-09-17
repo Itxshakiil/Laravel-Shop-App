@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <h2>Add Product</h2>
+<div class="container mx-auto">
+    <h2 class="text-3xl">Add Product</h2>
     <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>

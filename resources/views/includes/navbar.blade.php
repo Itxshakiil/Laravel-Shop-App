@@ -1,67 +1,54 @@
-<nav class="nav-wrapper">
-    <div class="nav-link">
-        <ul>
-            <li><a href="http://acme-computers.ml/" title="Homepage">Home</a></li>
-            <!-- <li><a href="http://acme-computers.ml/contact_us">Contact Us</a></li> -->
-            <li><a href="http://acme-computers.ml/admin">Admin</a></li>
-            <!-- <li class="cart"><a href="#"><i class="fas fa-shopping-cart"></i></a><span class="badge badge-primary">15</span></li> -->
-        </ul>
+<nav class="navbar flex items-center justify-between flex-wrap bg-gray-600 p-1">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <a class="text-3xl ml-2 semibold" href="{{ url('/') }}">
+        {{ config('app.name', 'Laravel') }}
+        </a>
     </div>
-    <div class="nav-btn">
-        <ul><!-- Authentication Links -->
-        @guest
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
-        </li>
-        @if (Route::has('register'))
-        <li class="nav-item">
-            <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
-        </li>
-        @endif
-        @else
-        <li class="nav-item dropdown">
-            <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown"
-                aria-haspopup="true" aria-expanded="false" v-pre>
-                {{ Auth::user()->name }} <span class="caret"></span>
-            </a>
+    <div class="block lg:hidden">
+        <button @click="toggle" class="flex items-center p-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+        <svg class="fill-current h-3 w-3 " viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+    </div>
+    <div :class="open ? 'block': 'hidden'" class="w-full flex-grow lg:flex lg:items-center lg:w-auto">
+        <div class="text-sm lg:flex-grow">
+        <a href="{{ route('admin.dashboard') }}" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">Admin
+        </a>
+        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white mr-4">
+            Examples
+        </a>
+        <a href="#responsive-header" class="block mt-4 lg:inline-block lg:mt-0 text-teal-200 hover:text-white">
+            Blog
+        </a>
+        </div>
+        <div class="text-white flex">
+        {{-- <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Download</a> --}}
 
-            <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+        @guest
+        <a class="mr-2" href="{{ route('login') }}">{{ __('Login') }}</a>
+        @if (Route::has('register'))
+            <a class="mr-2" href="{{ route('register') }}">{{ __('Register') }}</a>
+        @endif 
+        @else
+        <div class="dropdown align-baseline">
+            <button @click="toggle" id="navbarDropdown" class="dropdown-toggle">
+            {{ Auth::user()->name }}  <span class="inline-flex my-auto">
+            <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg>
+            </span>
+        </button>
+            <div :class="open ? 'block': 'hidden'">
+                <div  class="dropdown">
                 <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                             document.getElementById('logout-form').submit();">
+                document.getElementById('logout-form').submit();">
                     {{ __('Logout') }}
                 </a>
-
-                <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                    @csrf
-                </form>
+                <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                style="display: none;">
+                @csrf
+            </form>
             </div>
-        </li>
-        @endguest
-        </ul>
-    </div>
-</nav>
+        </div>
+        @endguest  
 
-
-{{-- <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-    <div class="container">
-        <a class="navbar-brand" href="{{ url('/') }}">
-            {{ config('app.name', 'Laravel') }}
-        </a>
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav mr-auto">
-
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="navbar-nav ml-auto">
-
-            </ul>
         </div>
     </div>
-</nav> --}}
+</nav>

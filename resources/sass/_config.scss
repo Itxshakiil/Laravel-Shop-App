@@ -37,7 +37,7 @@ $spaceamounts: (1, 2, 3, 4, 5);
 	color: set-text-color($color);
 }
 
-body {
+#app{
 	min-height: 100vh;
 	display: flex;
 	flex-direction: column;

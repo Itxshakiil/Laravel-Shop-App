@@ -13,9 +13,6 @@
 
 
 Route::get('/', 'HomeController@index')->name('home');
-// Route::get('/', function () {
-//     return view('welcome');
-// });
 
 Auth::routes();
 
@@ -23,7 +20,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('user.logout');
 
 Route::get('/product/view/{slug}', 'ProductController@view')->name('product.view');
-Route::get('/product/checkout/{slug}', 'ProductController@checkout')->name('product.checkout');
+Route::post('/product/{slug}', 'OrderController@store')->name('order.create');
+Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout');
+Route::post('/payment','PaymentController@store')->name('payment.status');
 
 // Admin
 Route::group(['prefix' => 'admin'], function () {

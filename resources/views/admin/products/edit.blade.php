@@ -1,7 +1,7 @@
 @extends('layouts.app')
 @section('content')
-<div class="container">
-    <h2>Edit {{ $product->name }}</h2>
+<div class="container mx-auto">
+    <h2 class="text-3xl">Edit {{ $product->name }}</h2>
     <form action="{{ route('products.update', $product->id) }}" method="post" enctype="multipart/form-data">
         <div class="form-group">
             <label for="name">Name</label>

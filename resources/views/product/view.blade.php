@@ -1,18 +1,21 @@
 @extends('layouts.app')
 @section('content')
-    <div class="container">
-        <h3>Details of {{ $product->name }}</h3>
-        <div class="product__container">
-            <div class="product__image">
-                <img src="/storage/{{ $product->image }}" alt="Details of {{ $product->name }}">
+    <div class="container mt-6 mx-auto"> 
+        <div class="md:flex border-2 rounded-lg">
+            <div class="md:flex-shrink-0">
+                <img class="rounded-lg md:w-56 h-64" src="/storage/{{ $product->image }}" alt="Details of {{ $product->name }}">
             </div>
-            <div class="product__info">
-                <p><strong>Name</strong> {{ $product->name }}</p>
-                <p><strong>Price :</strong>{{ $product->price }}</p>
-            </div>
-            <div class="product__action">
-                <a href="{{ 'something' }}" class="btn btn-primary">Checkout Now</a>
-                <button class="btn btn-success" disabled="disabled">Add to Cart</button>
+            <div class="pt-4 md:mt-0 md:ml-6">
+                <div class="uppercase tracking-wide text-sm text-indigo-600 font-bold">Details of {{ $product->name }}</div>
+                <a href="#" class="block mt-1 text-lg leading-tight font-semibold text-green hover:underline">₹{{ $product->price }}</a>
+                <p class="mt-2 text-gray-600 mb-3">
+                    {{ $product->description }}
+                </p>
+                <form action="{{ route('order.create', $product->slug) }}" method="post">
+                    @csrf
+                    <button type="submit" class="btn btn-primary">Order Now</button>
+                    <button class="btn btn-success disabled" disabled="disabled">Add to Cart</button>
+                </form>
             </div>
         </div>
     </div>

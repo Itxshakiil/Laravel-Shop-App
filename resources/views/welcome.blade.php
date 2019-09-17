@@ -12,18 +12,9 @@
         </div>
     </div>
 </section>
-<section class="container">
+<section class="container mx-auto">
     <div class="section__title btn btn-primary">Latest Section</div>
     <div class="product__list">
-        {{-- <div class="card product__item product__card">
-            <div class="card__header">
-                <img src="/storage/images/bg.jpg" alt="">
-            </div>
-            <div class="card__content">
-                <div class="product__name lead">Acme Computers</div>
-                <div class="product__price text-success">787</div>
-            </div>
-        </div> --}}
         @foreach ($products as $product)
             <div class="card product__item product__card" title="Buy {{ $product->name }}">
                 <div class="card__header">

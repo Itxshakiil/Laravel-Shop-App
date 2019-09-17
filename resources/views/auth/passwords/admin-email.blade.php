@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container mx-auto w-96 p-6 ">
+    <div class="">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Admin Reset Password') }}</div>
+            <div class="card p-3">
+                <div class="text-3xl">{{ __('Admin Reset Password') }}</div>
 
                 <div class="card-body">
                     @if (session('status'))
