@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+// use Dotenv\Exception\ValidationException;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
 
 class AdminLoginController extends Controller
 {
@@ -25,7 +27,13 @@ class AdminLoginController extends Controller
         if (Auth::guard('admin')->attempt(['email' => $request->email, 'password' => $request->password], $request->remember)) {
             return redirect()->intended(route('admin.dashboard'));
         }
-        return redirect()->back()->withInput($request->only('email', 'remember'));
+        // return redirect()->back()->withInput($request->only('email', 'remember'));
+        return $this->loginFailedResponse($request);
+    }
+    public function loginFailedResponse(Request $request){
+        throw ValidationException::withMessages([
+            $this->username() => [trans('auth.failed')],
+        ]);
     }
     /**
      * Log the user out of the application.
@@ -38,4 +46,15 @@ class AdminLoginController extends Controller
         Auth::guard('admin')->logout();
         return redirect('/admin');
     }
+    
+    /**
+     * Get the login username to be used by the controller.
+     *
+     * @return string
+     */
+    public function username()
+    {
+        return 'email';
+    }
+
 }

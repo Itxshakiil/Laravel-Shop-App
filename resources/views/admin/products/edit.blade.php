@@ -42,7 +42,7 @@
                 @enderror
         </div>
         <div class="form-group">
-            <input type="submit" value="Update {{ $product->name }}" class="btn btn-primary">
+            <input type="submit" value="Update {{ $product->name }}" class="btn bg-primary text-white">
         </div>
         @csrf
         @method('PUT')

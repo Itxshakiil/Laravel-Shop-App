@@ -20,7 +20,7 @@
             Blog
         </a>
         </div>
-        <div class="text-white flex">
+        <div class="text-white flex mr-4">
         {{-- <a href="#" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-teal-500 hover:bg-white mt-4 lg:mt-0">Download</a> --}}
 
         @guest
@@ -34,21 +34,20 @@
             {{ Auth::user()->name }}  <span class="inline-flex my-auto">
             <svg width="20" height="20" viewBox="0 0 1792 1792" xmlns="http://www.w3.org/2000/svg"><path d="M1395 736q0 13-10 23l-466 466q-10 10-23 10t-23-10l-466-466q-10-10-10-23t10-23l50-50q10-10 23-10t23 10l393 393 393-393q10-10 23-10t23 10l50 50q10 10 10 23z"/></svg>
             </span>
-        </button>
+            </button>
             <div :class="open ? 'block': 'hidden'">
                 <div  class="dropdown">
-                <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
-                document.getElementById('logout-form').submit();">
-                    {{ __('Logout') }}
-                </a>
-                <form id="logout-form" action="{{ route('logout') }}" method="POST"
-                style="display: none;">
-                @csrf
-            </form>
+                    <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault();
+                    document.getElementById('logout-form').submit();">
+                        {{ __('Logout') }}
+                    </a>
+                    <form id="logout-form" action="{{ route('logout') }}" method="POST"
+                    style="display: none;">
+                    @csrf
+                    </form>
+                </div>
             </div>
-        </div>
         @endguest  
-
         </div>
     </div>
 </nav>

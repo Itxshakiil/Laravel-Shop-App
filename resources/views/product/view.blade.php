@@ -13,8 +13,8 @@
                 </p>
                 <form action="{{ route('order.create', $product->slug) }}" method="post">
                     @csrf
-                    <button type="submit" class="btn btn-primary">Order Now</button>
-                    <button class="btn btn-success disabled" disabled="disabled">Add to Cart</button>
+                    <button type="submit" class="btn bg-primary text-white rounded">Order Now</button>
+                    <button class="btn btn-success disabled rounded" disabled="disabled">Add to Cart</button>
                 </form>
             </div>
         </div>

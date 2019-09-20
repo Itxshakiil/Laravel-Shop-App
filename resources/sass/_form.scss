@@ -38,7 +38,6 @@ textarea {
     padding: 0.4rem;
     outline: none;
     font-size: 1.2rem;
-    border-radius: 1px;
 	border: 1px solid #ccc;
 }
 
@@ -47,14 +46,14 @@ input[type="submit"]{
 }
 
 input:valid:focus:not(:placeholder-shown){
-    border:2px solid $success-color;
+    border:2px solid #28a745;
  }
  input:invalid:not(:focus):not(:placeholder-shown):not([type="password"]){
-    border:2px solid $danger-color;
+    border:2px solid #fa755a;
  }
 
 input:invalid:focus:not(:placeholder-shown){
-    border:2px solid $primary-color;
+    border:2px solid #17a2b8;
  }
  input[type="checkbox"]::after{
      content:attr(data-text);

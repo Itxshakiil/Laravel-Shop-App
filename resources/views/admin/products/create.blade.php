@@ -43,7 +43,7 @@
                 placeholder="Enter placeholder">{{ $product->description ?? old('description') }}</textarea>
         </div>
         <div class="form-group">
-            <input type="submit" value="Add Product" class="btn btn-primary">
+            <input type="submit" value="Add Product" class="btn bg-primary text-white">
         </div>
         @csrf
     </form>

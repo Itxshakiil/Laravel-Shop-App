@@ -1,29 +1,28 @@
 @extends('layouts.app')
 @section('content')
 <section class="home">
-    <div class="home__wrapper">
+    <div class="text-center text-white">
         <div class="home__content overlay">
-            {{-- <img src="{{ asset('storage/images/bg.jpg')}} "/> --}}
-            <h2 class="x-large">Welcome to My Shop</h2>
-            <p class="lead">We provide quality laptops in reasonable price.</p>
-            <div class="btn btn__primary">
-                <a href="{{ url('/')}} #product-section" class="btn btn-primary action-btn">Our Products</a>
+            <h2 class="text-6xl">Welcome to My Shop</h2>
+            <p class="text-2xl">We provide quality laptops in reasonable price.</p>
+            <div class="mt-3">
+                <a href="{{ url('/')}} #product-section" class="btn bg-primary rounded">Our Products</a>
             </div>
         </div>
     </div>
 </section>
-<section class="container mx-auto">
-    <div class="section__title btn btn-primary">Latest Section</div>
-    <div class="product__list">
+<section class="container mx-auto text-white">
+    <div class="btn bg-primary rounded m-4">Latest Section</div>
+    <div class="flex flex-wrap items-stretch">
         @foreach ($products as $product)
-            <div class="card product__item product__card" title="Buy {{ $product->name }}">
+            <div class="card flex-product m-5" title="View Details of {{ $product->name }}">
                 <div class="card__header">
-                    <img src="/storage/{{ $product->image }}" alt="Buy {{ $product->name }}">
+                    <img src="/storage/{{ $product->image }}" alt="View Details of {{ $product->name }}">
                 </div>
-                <div class="card__content">
-                    <div class="product__name lead">{{ $product->name }}</div>
-                    <div class="product__price text-success">₹ {{ $product->price }}</div>
-                    <a href="{{ route('product.view',$product->slug) }}" class="btn btn-success">View Details</a>
+                <div class="text-center p-3">
+                    <div class="text-2xl">{{ $product->name }}</div>
+                    <div class="text-success">₹{{ $product->price }}</div>
+                    <a href="{{ route('product.view',$product->slug) }}" class="btn bg-success rounded text-white m-1">View Details</a>
                 </div>
             </div>
         @endforeach

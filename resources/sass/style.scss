@@ -4,6 +4,13 @@
 @import "form";
 
 // Global
+html{
+    box-sizing: border-box;
+}
+::-webkit-scrollbar{
+    display: none;
+}
+
 .section {
     &__title {
         margin: 1rem;
@@ -11,10 +18,6 @@
 }
 // Home Section
 
-.home__wrapper {
-    color: white;
-    text-align: center;
-}
 .home__content {
     display: flex;
     flex-direction: column;
@@ -29,29 +32,16 @@
 // navbar
 
 nav.navbar {
-    position: sticky;
+    position: fixed;
     top: 0;
+    width:100vw;
     z-index: 1000;
 }
 
-// product section
-.product__list {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: stretch;
-}
-.product__item {
-    margin:1rem;
-    flex: 1 1 320px;
-}
 .card__header img {
     width: 100%;
     height: 240px;
 }
-.card__content {
-    text-align: center;
-}
-
 // Product View Page
 
 .product__image img{

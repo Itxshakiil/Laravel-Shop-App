@@ -3,7 +3,7 @@
 @section('content')
 <div class="container mx-auto">
     <div class="form-wrapper">
-        <h3 class="lead text-primary">Checkout with RazorPay</h3>
+        <h3 class="text-2xl text-primary">Checkout with RazorPay</h3>
         <p class="text-dark">You are going to Pay <strong>₹ {{ $order['amount']/100 }}</strong> for
             <strong>#{{ $order->id }}</strong></p>
             <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">  
@@ -42,6 +42,7 @@
                 </fieldset>
                 <fieldset>
                     <legend class="font-semibold">Shipping Address</legend>
+                    .
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full px-3">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping address][local]">
@@ -84,7 +85,7 @@
             <input type="hidden" name="cancel_url" value="http://127.0.0.1:8000/cancel-payment">  
             <small>You will be redirect to payment page.</small>
             <div class="form-group">
-                <button class="btn btn-primary">Submit</button>
+                <button class="btn bg-primary text-white">Go to Payment Page</button>
             </div>            
         </form>
     </div>

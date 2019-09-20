@@ -1,15 +1,15 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
+<div class="container w-96 mx-auto mt-6">
+    <div class="">
         <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">{{ __('Verify Your Email Address') }}</div>
+            <div class="card p-3">
+                <div class="text-3xl pt-8">{{ __('Verify Your Email Address') }}</div>
 
                 <div class="card-body">
                     @if (session('resent'))
-                        <div class="alert alert-success" role="alert">
+                        <div class="bg-light text-success" role="alert">
                             {{ __('A fresh verification link has been sent to your email address.') }}
                         </div>
                     @endif
