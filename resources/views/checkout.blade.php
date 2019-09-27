@@ -1,10 +1,10 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container mx-auto">
+<div class="container mx-auto mt-4 px-8">
     <div class="form-wrapper">
         <h3 class="text-2xl text-primary">Checkout with RazorPay</h3>
-        <p class="text-dark">You are going to Pay <strong>₹ {{ $order['amount']/100 }}</strong> for
+        <p class="text-dark">You are going to Pay <strong>₹ {{ $order['amount'] }}</strong> for
             <strong>#{{ $order->id }}</strong></p>
             <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">  
                 <input type="hidden" name="key_id" value="rzp_test_UtGYTNBzepZoVA">  
@@ -42,21 +42,20 @@
                 </fieldset>
                 <fieldset>
                     <legend class="font-semibold">Shipping Address</legend>
-                    .
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full px-3">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping address][local]">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping_address_local]">
                             Street Address
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping address][local]" name="notes[shipping address][local]" type="text" placeholder="Flat/House No./Colony/Street/Locality">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_local]" name="notes[shipping_address_local]" type="text" placeholder="Flat/House No./Colony/Street/Locality">
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
                         <div class="w-full md:w-1/3 px-3 mb-3 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping address][state]">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping_address_state]">
                             State
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping address][state]" name="notes[shipping address][state]" type="text" placeholder="Albuquerque">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_state]" name="notes[shipping_address_state]" type="text" placeholder="Albuquerque">
                         </div>
                         {{-- <div class="w-full md:w-1/3 px-3 mb-3 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
@@ -74,15 +73,14 @@
                             </div>
                         </div> --}}
                         <div class="w-full md:w-1/3 px-3 mb-3 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping address][pincode]">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping_address_pincode]">
                             Zip
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping address][pincode]" name="notes[shipping address][pincode]" type="text" placeholder="6 digits [0-9] pincode">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_pincode]" name="notes[shipping_address_pincode]" type="text" placeholder="6 digits [0-9] pincode">
                         </div>
                     </div>
                 </fieldset>
             <input type="hidden" name="callback_url" value="http://127.0.0.1:8000/payment">
-            <input type="hidden" name="cancel_url" value="http://127.0.0.1:8000/cancel-payment">  
             <small>You will be redirect to payment page.</small>
             <div class="form-group">
                 <button class="btn bg-primary text-white">Go to Payment Page</button>

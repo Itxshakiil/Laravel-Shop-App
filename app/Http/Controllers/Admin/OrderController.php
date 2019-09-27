@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Order;
-use App\Product;
 use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
 
 class OrderController extends Controller
 {
@@ -15,7 +15,8 @@ class OrderController extends Controller
      */
     public function index()
     {
-        //
+        $orders = Order::all();
+        return view('admin.orders.index', compact('orders'));
     }
 
     /**
@@ -34,18 +35,9 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($slug)
+    public function store(Request $request)
     {
-        $product = Product::where('slug',$slug)->firstOrFail();
-        $order_data = [
-            'receipt'         => 3499,
-            'amount'          => $product->price * 100, // 2000 rupees in paise
-            'currency'        => 'INR',
-            'payment_capture' => 1 // auto capture
-        ];
-        $order = Order::createOrder($order_data);
-        $order->products()->attach($product);
-        return redirect(route('order.checkout',['order'=>$order]));
+        //
     }
 
     /**
@@ -56,9 +48,9 @@ class OrderController extends Controller
      */
     public function show(Order $order)
     {
-        //
+        return view('admin.orders.show', compact('order'));
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -81,7 +73,7 @@ class OrderController extends Controller
     {
         //
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -91,15 +83,5 @@ class OrderController extends Controller
     public function destroy(Order $order)
     {
         //
-    }
-
-    /**
-     * Show the form for checkout.
-     *
-     * @param  \App\Order  $order
-     * @return \Illuminate\Http\Response
-     */
-    public function checkout(Order $order){
-        return view('checkout',compact('order'));
     }
 }

@@ -11,7 +11,6 @@
 |
 */
 
-
 Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
@@ -22,7 +21,8 @@ Route::get('/user-logout', 'Auth\LoginController@userLogout')->name('user.logout
 Route::get('/product/view/{slug}', 'ProductController@view')->name('product.view');
 Route::post('/product/{slug}', 'OrderController@store')->name('order.create');
 Route::get('/checkout/{order}', 'OrderController@checkout')->name('order.checkout');
-Route::post('/payment','PaymentController@store')->name('payment.status');
+Route::post('/payment','PaymentController@store')->name('payment.verify');
+Route::get('/payment/{payment}','PaymentController@show')->name('payment.status');
 
 // Admin
 Route::group(['prefix' => 'admin'], function () {
@@ -37,5 +37,9 @@ Route::group(['prefix' => 'admin'], function () {
     Route::get('/password/reset','Auth\AdminForgotPasswordController@showLinkRequestForm')->name('admin.password.request');
     Route::post('/password/reset','Auth\AdminResetPasswordController@reset')->name('admin.password.update');
     Route::get('/password/reset/{token}','Auth\AdminResetPasswordController@showResetForm')->name('admin.password.reset');
-    Route::resource('/products', 'Admin\ProductController');
+    // Route::middleware(['auth:admin'])->group(function () {
+        Route::resource('/products', 'Admin\ProductController');
+        Route::resource('/orders', 'Admin\OrderController');
+        Route::resource('/payments', 'Admin\PaymentController');
+    // });
 });

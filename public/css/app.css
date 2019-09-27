@@ -12052,10 +12052,6 @@ html {
   display: none;
 }
 
-.section__title {
-  margin: 1rem;
-}
-
 .home__content {
   display: flex;
   flex-direction: column;

@@ -17,8 +17,11 @@ class CreateOrdersTable extends Migration
             $table->string('id')->unique();
             $table->string('entity');
             $table->bigInteger('amount');
+            $table->bigInteger('amount_paid')->nullable();
+            $table->bigInteger('amount_due')->nullable();
             $table->string('currency');
             $table->string('receipt');
+            $table->string('offer_id')->nullable();
             $table->string('status');
             $table->integer('attempts');
             $table->string('notes')->nullable();
