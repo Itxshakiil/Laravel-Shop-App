@@ -31,13 +31,17 @@ class AdminForgotPasswordController extends Controller
     {
         $this->middleware('guest:admin');
     }
+
     protected function broker()
     {
         return Password::broker('admins');
     }
-    public function showLinkRequestForm(){
+
+    public function showLinkRequestForm()
+    {
         return view('auth.passwords.admin-email');
     }
+
     /**
      * Send a reset link to the given user.
      *
@@ -59,5 +63,4 @@ class AdminForgotPasswordController extends Controller
             ? $this->sendResetLinkResponse($request, $response)
             : $this->sendResetLinkFailedResponse($request, $response);
     }
-
 }

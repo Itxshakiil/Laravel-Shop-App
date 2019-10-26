@@ -7,8 +7,9 @@ use Illuminate\Database\Eloquent\Model;
 class Product extends Model
 {
     protected $guarded = [];
-    
-    public function orders(){
+
+    public function orders()
+    {
         return $this->belongsToMany('App\Product')->withTimestamps();
     }
 }

@@ -36,16 +36,17 @@ class OrderController extends Controller
      */
     public function store($slug)
     {
-        $product = Product::where('slug',$slug)->firstOrFail();
+        $product = Product::where('slug', $slug)->firstOrFail();
         $order_data = [
-            'receipt'         => 3499,
-            'amount'          => $product->price * 100, // 2000 rupees in paise
-            'currency'        => 'INR',
+            'receipt' => 3499,
+            'amount' => $product->price * 100, // 2000 rupees in paise
+            'currency' => 'INR',
             'payment_capture' => 1 // auto capture
         ];
         $order = Order::createOrder($order_data);
         $order->products()->attach($product);
-        return redirect(route('order.checkout',['order'=>$order]));
+        session(['order' => $order->id]);
+        return redirect(route('order.checkout', ['order' => $order]));
     }
 
     /**
@@ -58,7 +59,7 @@ class OrderController extends Controller
     {
         //
     }
-    
+
     /**
      * Show the form for editing the specified resource.
      *
@@ -81,7 +82,7 @@ class OrderController extends Controller
     {
         //
     }
-    
+
     /**
      * Remove the specified resource from storage.
      *
@@ -99,7 +100,8 @@ class OrderController extends Controller
      * @param  \App\Order  $order
      * @return \Illuminate\Http\Response
      */
-    public function checkout(Order $order){
-        return view('checkout',compact('order'));
+    public function checkout(Order $order)
+    {
+        return view('checkout', compact('order'));
     }
 }

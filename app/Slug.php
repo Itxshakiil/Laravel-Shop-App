@@ -6,7 +6,6 @@ use Illuminate\Database\Eloquent\Model;
 
 class Slug extends Model
 {
-
     /**
      * @param $title
      * @param int $id
@@ -15,7 +14,6 @@ class Slug extends Model
      */
     public function createSlug($title, $id = 0)
     {
-
         // $slug = preg_replace("/-$/", "", preg_replace('/[^a-z0-9]+/i', "-", strtolower($title)));
 
         // $query = "SELECT COUNT(*) AS NumHits FROM $table_name WHERE  $field_name  LIKE '$slug%'";
@@ -24,7 +22,7 @@ class Slug extends Model
         // $numHits = $row['NumHits'];
 
         // return ($numHits > 0) ? ($slug . '-' . $numHits) : $slug;
-        // Normalize the title 
+        // Normalize the title
         $slug = preg_replace('/\s+/', '-', $title);
         // Get any that could possibly be related.
         // This cuts the queries down by doing it once.
@@ -43,6 +41,7 @@ class Slug extends Model
         }
         throw new \Exception('Can not create a unique slug');
     }
+
     protected function getRelatedSlugs($slug, $id = 0)
     {
         return Product::select('slug')->where('slug', 'like', $slug . '%')

@@ -7,6 +7,9 @@ use Faker\Generator as Faker;
 
 $factory->define(Admin::class, function (Faker $faker) {
     return [
-        //
+        'name' => $faker->name(),
+        'email' => 'admin@acme.com',
+        'job_title' => $faker->jobTitle,
+        'password' => Hash::make('Admin123'),
     ];
 });

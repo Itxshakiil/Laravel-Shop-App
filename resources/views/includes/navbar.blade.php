@@ -1,4 +1,4 @@
-<nav class="navbar flex items-center justify-between flex-wrap bg-gray-600 p-1">
+<nav class="sticky top-0 z-50 flex items-center justify-between flex-wrap bg-gray-600 p-1">
     <div class="flex items-center flex-shrink-0 text-white mr-6">
         <a class="text-3xl ml-2 semibold" href="{{ url('/') }}">
         {{ config('app.name', 'Laravel') }}

@@ -6,8 +6,9 @@ use App\Product;
 
 class ProductController extends Controller
 {
-    public function view($slug){
+    public function view($slug)
+    {
         $product = Product::where('slug', $slug)->firstOrFail();
-        return view('product.view',compact('product'));
+        return view('product.view', compact('product'));
     }
 }

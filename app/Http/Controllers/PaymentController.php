@@ -6,6 +6,7 @@ use App\Order;
 use App\Payment;
 use App\RazorpayApi;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
 use Razorpay\Api\Errors\SignatureVerificationError;
 
 class PaymentController extends Controller
@@ -38,24 +39,29 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        if($request->error){
-            $error =$request->error['description'];
-            return view('payment.failed', compact('error'));
-        }
+        // if($request->error){
+        //     if(Arr::has($request->error,'field')){
+        //         return redirect()->route('order.checkout', ['order' => session('order')])->with('error', $request->error);
+        //     }
+        //     $error =$request->error['description'];
+        //     return view('payment.failed', compact('error'));
+        // }
+        $this->handlePaymentError($request);
+
         try {
             // Please note that the razorpay order ID must
             // come from a trusted source (fetched from API here, but
             // could be database or something else)
             $payment = RazorpayApi::connect()->payment->fetch($request->razorpay_payment_id);
-            $attributes = array(
+            $attributes = [
                 'razorpay_signature' => $request->razorpay_signature,
                 'razorpay_payment_id' => $request->razorpay_payment_id,
-                'razorpay_order_id' => $payment->order_id
-            );
+                'razorpay_order_id' => session('order')
+            ];
             RazorpayApi::connect()->utility->verifyPaymentSignature($attributes);
         } catch (SignatureVerificationError $e) {
             // Check if payment really exists
-            $error =$e->getMessage();
+            $error = $e->getMessage();
             return view('payment.failed', compact('error'));
         }
         $notes = $payment->notes->toArray();
@@ -70,7 +76,7 @@ class PaymentController extends Controller
             'international' => $payment->international,
             'method' => $payment->method,
             'amount_refunded' => $payment->amount_refunded,
-            'refund_status' => "null",
+            'refund_status' => 'null',
             'captured' => $payment->captured,
             'description' => $payment->description,
             'card_id' => $payment->card_id,
@@ -87,7 +93,7 @@ class PaymentController extends Controller
         ]);
         return redirect()->route('payment.status', ['payment' => $payment]);
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -131,5 +137,16 @@ class PaymentController extends Controller
     public function destroy(Payment $payment)
     {
         //
+    }
+
+    protected function handlePaymentError(Request $request)
+    {
+        if ($request->error) {
+            if (Arr::has($request->error, 'field')) {
+                return redirect()->route('order.checkout', ['order' => session('order')])->with('error', $request->error);
+            }
+            $error = $request->error['description'];
+            return view('payment.failed', compact('error'));
+        }
     }
 }

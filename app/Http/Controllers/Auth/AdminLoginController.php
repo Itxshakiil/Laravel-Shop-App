@@ -14,10 +14,12 @@ class AdminLoginController extends Controller
     {
         $this->middleware('guest:admin')->except('logout');
     }
+
     public function showLoginForm()
     {
         return view('auth.admin-login');
     }
+
     public function login(Request $request)
     {
         $this->validate($request, [
@@ -30,11 +32,14 @@ class AdminLoginController extends Controller
         // return redirect()->back()->withInput($request->only('email', 'remember'));
         return $this->loginFailedResponse($request);
     }
-    public function loginFailedResponse(Request $request){
+
+    public function loginFailedResponse(Request $request)
+    {
         throw ValidationException::withMessages([
             $this->username() => [trans('auth.failed')],
         ]);
     }
+
     /**
      * Log the user out of the application.
      *
@@ -46,7 +51,7 @@ class AdminLoginController extends Controller
         Auth::guard('admin')->logout();
         return redirect('/admin');
     }
-    
+
     /**
      * Get the login username to be used by the controller.
      *
@@ -56,5 +61,4 @@ class AdminLoginController extends Controller
     {
         return 'email';
     }
-
 }

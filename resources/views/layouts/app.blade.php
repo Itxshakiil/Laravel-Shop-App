@@ -24,7 +24,7 @@
 <body>
     <div id="app">
         @include('includes.navbar')
-        <main class="pt-12 leading-normal">
+        <main class="leading-normal">
             @yield('content')
         </main>
         

@@ -39,16 +39,17 @@ class AdminResetPasswordController extends Controller
     {
         $this->middleware('guest:admin');
     }
+
     protected function guard()
     {
         return Auth::guard('admin');
     }
-    
 
     protected function broker()
     {
         return Password::broker('admins');
     }
+
     /**
      * Display the password reset view for the given token.
      *
@@ -64,5 +65,4 @@ class AdminResetPasswordController extends Controller
             ['token' => $token, 'email' => $request->email]
         );
     }
-
 }

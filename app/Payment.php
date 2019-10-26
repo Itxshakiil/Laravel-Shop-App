@@ -11,21 +11,25 @@ class Payment extends Model
     protected $casts = [
         'notes' => 'array',
     ];
-    
-    public function order(){
+
+    public function order()
+    {
         return $this->belongsTo('App\Order');
     }
 
-    public function getAmountAttribute($value){
-        return $value/100; 
+    public function getAmountAttribute($value)
+    {
+        return $value / 100;
     }
 
-    public function getShippingAddress(){
-        $address=json_decode($this->notes);
-        return $address->shipping_address_local .", ".$address->shipping_address_state .", ".$address->shipping_address_pincode;
+    public function getShippingAddress()
+    {
+        $address = json_decode($this->notes);
+        return $address->shipping_address_local . ', ' . $address->shipping_address_state . ', ' . $address->shipping_address_pincode;
     }
-    
-    public function getCardDetails(){
+
+    public function getCardDetails()
+    {
         return RazorpayApi::connect()->card->fetch($this->card_id);
     }
 }

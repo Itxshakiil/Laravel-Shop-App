@@ -64,10 +64,10 @@ class Handler extends ExceptionHandler
         $guard = array_get($exception->guards(), 0);
         switch ($guard) {
             case 'admin':
-                $route = "admin.login";
+                $route = 'admin.login';
                 break;
             default:
-                $route = "login";
+                $route = 'login';
                 break;
         }
         return $request->expectsJson()

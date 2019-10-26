@@ -8,10 +8,6 @@ use Illuminate\Http\Request;
 
 class ProductController extends Controller
 {
-    public function __construct()
-    {
-        // $this->middleware('auth:admin');
-    }
     /**
      * Display a listing of the resource.
      *
@@ -101,6 +97,7 @@ class ProductController extends Controller
         $product->delete();
         return redirect()->route('products.index');
     }
+
     public function validateData(Request $request)
     {
         return $request->validate([
@@ -110,12 +107,19 @@ class ProductController extends Controller
             'description' => 'required',
         ]);
     }
+
+    /**
+     * Return Unique Image name in snake_case
+     *
+     * @param Request $request
+     * @return string
+     */
     public function uploadImage(Request $request)
     {
-        // give uploaded image name and replace space with underscore in name
         $name = time() . '_' . preg_replace('/\s+/', '_', $request->image->getClientOriginalName());
         return $request->image->storeAs('products/images', $name, 'public');
     }
+
     /**
      * @param $title
      * @return string
