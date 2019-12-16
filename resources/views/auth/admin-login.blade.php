@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Admin | Login')
 @section('content')
 <div class="w-96 mx-auto pt-10">
     <div class="">

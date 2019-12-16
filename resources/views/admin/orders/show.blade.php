@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    Details of {{ $order->id }}
+@endsection
 @section('content')
 <div class="container mx-auto">
     <a href="{{ url()->previous() }}" class="inline-block bg-blue-400 px-2 text-white mt-4 rounded">Go Back</a>

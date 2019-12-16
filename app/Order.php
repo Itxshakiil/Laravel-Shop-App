@@ -14,7 +14,7 @@ class Order extends Model
 
     public static function createOrder($orderData)
     {
-        $data = RazorpayApi::connect()->order->create($orderData);
+        $data = RazorpayApi::createOrder($orderData);
         $notes = $data->notes->toArray();
         $order = new \App\Order;
         $order->id = $data->id;
@@ -45,7 +45,7 @@ class Order extends Model
 
     public function fetchRecentInfo()
     {
-        $orderData = RazorpayApi::connect()->order->fetch($this->id);
+        $orderData = RazorpayApi::fetchOrder($this->id);
         $this->update([
             'amount_paid' => $orderData->amount_paid,
             'amount_due' => $orderData->amount_due,

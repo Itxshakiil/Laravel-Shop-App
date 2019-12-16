@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    Edit {{ $product->name }}
+@endsection
 @section('content')
 <div class="container mx-auto">
     <h2 class="text-3xl">Edit {{ $product->name }}</h2>

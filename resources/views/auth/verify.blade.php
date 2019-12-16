@@ -1,5 +1,5 @@
 @extends('layouts.app')
-
+@section('title','Verify email Address')
 @section('content')
 <div class="container w-96 mx-auto mt-6">
     <div class="">

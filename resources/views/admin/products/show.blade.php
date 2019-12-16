@@ -1,4 +1,7 @@
 @extends('layouts.app')
+@section('title')
+    Details of {{ $product->id }}
+@endsection
 @section('content')
 <div class="container mt-6 mx-auto"> 
     <a href="./" class="text-lg text-teal-600">Go Back</a>

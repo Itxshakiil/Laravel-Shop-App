@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','All payments')
 @section('content')
 <div class="container mx-auto">
     <h3 class="text-3xl my-2">Payments List</h3>

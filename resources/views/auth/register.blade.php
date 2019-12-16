@@ -1,11 +1,10 @@
 @extends('layouts.app')
-
+@section('title','Register new account')
 @section('content')
 <div class="container w-96 mx-auto mt-6">
     <div class="">
         <div class="col-md-8">
             <div class="card p-5 m-2">
-                {{-- <div class="text-center text-3xl">{{ __('Register') }}</div> --}}
                 <h1 class="text-3xl pt-8">Welcome Back</h1>
                 <h2 class="text-blue-500">Enter your details below to register.</h2>
                 <div class="card-body mt-6">

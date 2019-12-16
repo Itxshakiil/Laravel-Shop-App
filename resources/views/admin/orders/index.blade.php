@@ -1,13 +1,14 @@
 @extends('layouts.app')
+@section('title','All Orders')
 @section('content')
 <div class="container mx-auto">
     <h3 class="text-3xl my-2">Orders List</h3>
     <table class="overflow-x-auto w-full text-center border-collapse">
-        <thead class="">
+        <thead>
             <tr class="bg-gray-300">
                 <th class="p-3">orderId</th>
                 <th class="p-3">Amount</th>
-                <th class="p-3">Attempts</th>>
+                <th class="p-3">Attempts</th>
                 <th class="p-3">Receipt</th>
                 <th class="p-3">Created at</th>
                 <th class="p-3">Status</th>
@@ -18,9 +19,6 @@
                 <tr class="border-gray-300 border-b">
                     <td class="p-3">
                         <a class="text-blue-500" href="{{ route('orders.show',['id'=> $order->id]) }}">{{ $order->id }}</a>
-                    </td>
-                    <td class="p-3">
-                        <a class="text-blue-500" href="{{ route('orders.show',['id'=> $order->order_id]) }}">{{ $order->order_id }}</a>
                     </td>
                     <td class="p-3">{{ $order->amount.' '.$order->currency }}</td>
                     <td class="p-3">{{ $order->email }}</td>

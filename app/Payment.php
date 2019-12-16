@@ -30,6 +30,6 @@ class Payment extends Model
 
     public function getCardDetails()
     {
-        return RazorpayApi::connect()->card->fetch($this->card_id);
+        return RazorpayApi::fetchCard($this->card_id);
     }
 }

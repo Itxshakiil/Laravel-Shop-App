@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Add Product')
 @section('content')
 <div class="container mx-auto">
     <h2 class="text-3xl">Add Product</h2>

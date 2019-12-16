@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Order;
 use App\Product;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 
 class OrderController extends Controller
@@ -34,17 +35,20 @@ class OrderController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store($slug)
+    public function store()
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
         $order_data = [
             'receipt' => 3499,
-            'amount' => $product->price * 100, // 2000 rupees in paise
+            'amount' => Cart::total() * 100, // 2000 rupees in paise
             'currency' => 'INR',
             'payment_capture' => 1 // auto capture
         ];
         $order = Order::createOrder($order_data);
-        $order->products()->attach($product);
+        $products = Cart::content()->map(function ($item) {
+            return $item->model->id;
+        })->values();
+        $order->products()->attach($products);
+
         session(['order' => $order->id]);
         return redirect(route('order.checkout', ['order' => $order]));
     }

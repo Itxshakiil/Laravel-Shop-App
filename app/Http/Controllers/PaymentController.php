@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Order;
 use App\Payment;
 use App\RazorpayApi;
+use Gloudemans\Shoppingcart\Facades\Cart;
 use Illuminate\Http\Request;
 use Illuminate\Support\Arr;
 use Razorpay\Api\Errors\SignatureVerificationError;
@@ -22,16 +23,6 @@ class PaymentController extends Controller
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
-    }
-
-    /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
@@ -39,26 +30,25 @@ class PaymentController extends Controller
      */
     public function store(Request $request)
     {
-        // if($request->error){
-        //     if(Arr::has($request->error,'field')){
-        //         return redirect()->route('order.checkout', ['order' => session('order')])->with('error', $request->error);
-        //     }
-        //     $error =$request->error['description'];
-        //     return view('payment.failed', compact('error'));
-        // }
-        $this->handlePaymentError($request);
+        if ($request->error) {
+            return redirect()->route('order.checkout', ['order' => session('order')])->with('error', $request->error['description']);
+            // if (Arr::has($request->error, 'field')) {
+            // }
+            // $error = $request->error['description'];
+            // return view('payment.failed', compact('error'));
+        }
 
         try {
             // Please note that the razorpay order ID must
             // come from a trusted source (fetched from API here, but
             // could be database or something else)
-            $payment = RazorpayApi::connect()->payment->fetch($request->razorpay_payment_id);
+            $payment = RazorpayApi::fetchPayment($request->razorpay_payment_id);
             $attributes = [
                 'razorpay_signature' => $request->razorpay_signature,
                 'razorpay_payment_id' => $request->razorpay_payment_id,
                 'razorpay_order_id' => session('order')
             ];
-            RazorpayApi::connect()->utility->verifyPaymentSignature($attributes);
+            RazorpayApi::verifyPaymentSignature($attributes);
         } catch (SignatureVerificationError $e) {
             // Check if payment really exists
             $error = $e->getMessage();
@@ -91,6 +81,7 @@ class PaymentController extends Controller
             'error_description' => $payment->error_description,
             'notes' => json_encode($notes),
         ]);
+        Cart::instance('default')->destroy();
         return redirect()->route('payment.status', ['payment' => $payment]);
     }
 
@@ -103,50 +94,5 @@ class PaymentController extends Controller
     public function show(Payment $payment)
     {
         return view('payment.success', compact('payment'));
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function update(Request $request, Payment $payment)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  \App\Payment  $payment
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy(Payment $payment)
-    {
-        //
-    }
-
-    protected function handlePaymentError(Request $request)
-    {
-        if ($request->error) {
-            if (Arr::has($request->error, 'field')) {
-                return redirect()->route('order.checkout', ['order' => session('order')])->with('error', $request->error);
-            }
-            $error = $request->error['description'];
-            return view('payment.failed', compact('error'));
-        }
     }
 }

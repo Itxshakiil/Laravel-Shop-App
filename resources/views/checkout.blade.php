@@ -1,11 +1,14 @@
 @extends('layouts.app')
-
+@section('title','Checkout Page')
 @section('content')
 <div class="container mx-auto mt-4 px-8">
-    <div class="form-wrapper">
-        <h3 class="text-2xl text-primary">Checkout with RazorPay</h3>
-        <p class="text-dark">You are going to Pay <strong>₹ {{ $order['amount'] }}</strong> for
-            <strong>#{{ $order->id }}</strong></p>
+    <div class="flex justify-between">   
+        <div class="form-wrapper flex-1">
+            <h3 class="text-2xl text-primary">Checkout with RazorPay</h3>
+            <p class="text-dark">You are going to Pay <strong>₹ {{ $order['amount'] }}</strong> for
+                <strong>#{{ $order->id }}</strong>
+            </p>
+            @include('includes.message')
             <form method="POST" action="https://api.razorpay.com/v1/checkout/embedded">  
                 <input type="hidden" name="key_id" value="rzp_test_UtGYTNBzepZoVA">  
                 <input type="hidden" name="order_id" value="{{ $order->id }}">  
@@ -18,30 +21,20 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prefill[name]">
                             Full Name
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="prefill[name]" name="prefill[name]" type="text" placeholder="John Doe">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="prefill[name]" name="prefill[name]" type="text" placeholder="John Doe" autofocus>
                         </div>
                     </div>  
                     <div class="flex flex-wrap -mx-3 mb-3">
                         <div class="w-full md:w-1/2 px-3 mb-3 md:mb-0">
-                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prefill[email]">Email
-                            </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="prefill[email]" name="prefill[email]" type="email" placeholder="example@company.com">
-                            @if (session('error.field') === 'email')
-                                <div class="text-danger">
-                                    {{ session('error.description') }}
-                                </div>
-                            @endif
-                        </div>
-                        <div class="w-full md:w-1/2 px-3 mb-3 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prefill[contact]">
                             Mobile Number
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="prefill[contact]" name="prefill[contact]" type="tel" placeholder="9123456780">
-                            @if (session('error.field') === 'contact')
-                                <div class="text-danger">
-                                    {{ session('error.description') }}
-                                </div>
-                            @endif
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="prefill[contact]" name="prefill[contact]" type="tel" placeholder="9123456780" required>
+                        </div>
+                        <div class="w-full md:w-1/2 px-3 mb-3 md:mb-0">
+                            <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="prefill[email]">Email
+                            </label>
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="prefill[email]" name="prefill[email]" type="email" placeholder="example@company.com" required>
                         </div>
                     </div>
                 </fieldset>
@@ -52,7 +45,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping_address_local]">
                             Street Address
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_local]" name="notes[shipping_address_local]" type="text" placeholder="Flat/House No./Colony/Street/Locality">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_local]" name="notes[shipping_address_local]" type="text" placeholder="Flat/House No./Colony/Street/Locality" required>
                         </div>
                     </div>
                     <div class="flex flex-wrap -mx-3 mb-2">
@@ -60,7 +53,7 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping_address_state]">
                             State
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_state]" name="notes[shipping_address_state]" type="text" placeholder="Faridabad">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_state]" name="notes[shipping_address_state]" type="text" placeholder="Faridabad" required>
                         </div>
                         {{-- <div class="w-full md:w-1/3 px-3 mb-3 md:mb-0">
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-state">
@@ -81,16 +74,58 @@
                             <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="notes[shipping_address_pincode]">
                             Zip
                             </label>
-                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_pincode]" name="notes[shipping_address_pincode]" type="text" placeholder="6 digits [0-9] pincode">
+                            <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="notes[shipping_address_pincode]" name="notes[shipping_address_pincode]" type="text" placeholder="6 digits [0-9] pincode" required>
                         </div>
                     </div>
                 </fieldset>
-            <input type="hidden" name="callback_url" value="http://127.0.0.1:8000/payment">
-            <small>You will be redirect to payment page.</small>
-            <div class="form-group">
-                <button class="btn bg-primary text-white">Go to Payment Page</button>
-            </div>            
-        </form>
+                <input type="hidden" name="callback_url" value="http://127.0.0.1:8000/payment">
+                <small>You will be redirect to payment page.</small>
+                <div class="form-group">
+                    <button class="btn bg-primary text-white">Go to Payment Page</button>
+                </div>            
+            </form>
+        </div>
+        <div class="cart flex-1 px-4">
+            <p class="text-lg font-semibold">Your Order</p>
+            <div class="cart">
+                @foreach (Cart::instance('default')->content() as $item)
+                    <div class="flex justify-between border-b-2 p-2">
+                        <img src="/storage/{{ $item->model->image }}" alt="Details of {{ $item->model->name }}" width="100" height="100">
+                        <a href="{{ route('product.view',$item->model->slug) }}" class="mx-2">{{ $item->name }}</a>
+                        
+                        <div class="mx-2 flex flex-col">
+                            <form action="{{ route('cart.destroy',['order' => $item->rowId ]) }}" method="post">
+                                @csrf
+                                @method('delete')
+                                <button type="submit">Remove</button>
+                            </form>
+                            <form action="{{ route('cart.switchToSaveForLater',['order' => $item->rowId ]) }}" method="post">
+                                @csrf
+                                <button type="submit">Save for later</button>
+                            </form>
+                        </div>
+                        <p>{{ $item->qty  }}</p>
+                        <p class="font-semibold">${{ $item->model->price  }}</p>
+                    </div>
+                @endforeach
+            </div>
+            
+            <div class="flex justify-between px-2">
+                <p>Lorem ipsum dolor sit, amet consectetur adipisicing elit. Perferendis blanditiis voluptates commodi vero. Impedit odio unde animi aliquam reprehenderit modi.</p>
+                <div class="cart-total flex">
+                    <div class="cart-total-left px-2">
+                        <p>Subtotal</p>   
+                        <p>Tax</p>   
+                        <p class="font-semibold">Total</p>   
+                    </div>
+                    <div class="cart-total-right">
+                        <p class="font-semibold">{{ Cart::subtotal() }}</p> 
+                        <p class="font-semibold">{{ Cart::tax() }}</p> 
+                    <p class="font-semibold">{{ Cart::total() }}</p>  
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 

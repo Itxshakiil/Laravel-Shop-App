@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','All products')
 @section('content')
 <div class="container mx-auto overflow-hidden">
     <h3 class="text-3xl my-2">Product List</h3>

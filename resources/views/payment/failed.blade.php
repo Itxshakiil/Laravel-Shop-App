@@ -1,4 +1,5 @@
 @extends('layouts.app')
+@section('title','Payment Failed')
 @section('content')
     <div class="container mx-auto">
         <div class="md:mx-auto card max-w-lg p-8 pb-2 m-3">
