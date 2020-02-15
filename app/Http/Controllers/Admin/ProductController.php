@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Product;
 use Illuminate\Http\Request;
+use Intervention\Image\Facades\Image;
 
 class ProductController extends Controller
 {
@@ -41,6 +42,10 @@ class ProductController extends Controller
         $request->validate(['image' => 'required']);
         $data['image'] = $this->uploadImage($request);
         $data['slug'] = $this->createSlug($request->name);
+
+        $img = Image::make(public_path("/storage/{$data['image']}"))->resize(1920, 900);
+        $img->save();
+
         $product = Product::create($data);
 
         return redirect()->route('products.show', ['product' => $product]);
@@ -80,6 +85,9 @@ class ProductController extends Controller
         $data = $this->validateData($request);
         if ($request->hasFile('image')) {
             $imgArr = ['image' => $this->uploadImage($request)];
+
+            $img = Image::make(public_path("/storage/{$imgArr['image']}"))->resize(1920, 900);
+            $img->save();
         }
         $product->update(array_merge($data, $imgArr ?? []));
 
